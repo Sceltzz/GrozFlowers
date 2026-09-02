@@ -19,6 +19,17 @@
  * below), so there's no cropping to fight across viewport widths either.
  * The photo already has the gold stitching baked in, so there's no
  * separate CSS overlay for it any more.
+ *
+ * The mist image fills the wrapper with a plain `inset-0`, not the
+ * `top-1/2 -translate-y-1/2` centering trick it briefly had — a CSS
+ * `animation` (`.animate-mist`) sets the whole `transform` property at
+ * every keyframe, so it doesn't merge with a *separate* static transform
+ * like `-translate-y-1/2`, it replaces it outright. With that combo the
+ * image kept losing its −50% offset to the animation and rendering
+ * shifted down by half its own height — a blank gap above the ribbon,
+ * the actual cloud glow dumped low enough to spill into the section
+ * below it. `inset-0` already fills the box with no transform needed, so
+ * there's nothing left for the animation to clobber.
  */
 export function Ribbon() {
   return (
@@ -29,7 +40,7 @@ export function Ribbon() {
       <img
         src="/portal-mist.svg"
         alt=""
-        className="animate-mist pointer-events-none absolute inset-x-0 top-1/2 h-full w-full -translate-y-1/2 object-fill opacity-80"
+        className="animate-mist pointer-events-none absolute inset-0 h-full w-full object-fill opacity-80"
       />
 
       <div
