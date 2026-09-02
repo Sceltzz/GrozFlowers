@@ -228,24 +228,6 @@
   animation: dove-drift-c 16s ease-in-out infinite;
 }
 
-/* the portal mist breathes — barely; it's ambient, not a mask, so it can afford to move */
-@keyframes mist-breathe {
-  0%,
-  100% {
-    transform: scale(1.03) translateY(0);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.07) translateY(-6px);
-    opacity: 0.92;
-  }
-}
-
-.animate-mist {
-  animation: mist-breathe 22s ease-in-out infinite;
-  will-change: transform;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -263,8 +245,7 @@
 
   .animate-dove-drift-a,
   .animate-dove-drift-b,
-  .animate-dove-drift-c,
-  .animate-mist {
+  .animate-dove-drift-c {
     animation: none !important;
   }
 }
