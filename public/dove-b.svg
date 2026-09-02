@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 155" width="240" height="155" fill="none">
+  <defs>
+    <linearGradient id="plumeB" x1="0.15" y1="0" x2="0.7" y2="1">
+      <stop offset="0" stop-color="#ffffff" />
+      <stop offset="0.5" stop-color="#fbf7f0" />
+      <stop offset="1" stop-color="#e3d8c6" />
+    </linearGradient>
+    <linearGradient id="wingB" x1="0.4" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#ffffff" />
+      <stop offset="1" stop-color="#e9dfce" />
+    </linearGradient>
+    <filter id="softB" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#2f4635" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- gliding: wings held level -->
+  <g filter="url(#softB)">
+    <path
+      d="M132 96 C138 110 132 126 112 140 C146 132 168 114 176 94 C180 84 172 76 161 79 C148 82 136 88 132 96 Z"
+      fill="#e9dece" opacity="0.8" />
+
+    <path
+      d="M62 80 C40 77 20 75 2 79 C17 95 40 107 64 108 C60 99 59 89 62 80 Z"
+      fill="url(#plumeB)" />
+    <path d="M20 82 C34 91 48 97 61 100" stroke="#dbcfbc" stroke-width="1.3" stroke-linecap="round" opacity="0.65" />
+
+    <ellipse cx="120" cy="84" rx="62" ry="29" transform="rotate(-5 120 84)" fill="url(#plumeB)" />
+    <path d="M148 62 C158 51 172 47 184 50 C196 53 202 64 198 74 C194 85 181 89 169 85 C157 81 149 73 148 62 Z"
+      fill="url(#plumeB)" />
+    <circle cx="187" cy="63" r="16" fill="url(#plumeB)" />
+    <path d="M201 59 L218 64 L201 70 Z" fill="#d8c9ae" />
+    <circle cx="193" cy="59" r="2.1" fill="#2f4635" opacity="0.8" />
+
+    <path
+      d="M122 64 C108 47 86 34 56 28 C92 25 130 35 154 55 C163 62 160 73 149 75 C136 78 127 72 122 64 Z"
+      fill="url(#wingB)" />
+    <path d="M124 66 C112 55 96 46 74 40" stroke="#ddd1be" stroke-width="1.5" stroke-linecap="round" opacity="0.75" />
+    <path d="M134 70 C124 60 110 52 92 46" stroke="#ddd1be" stroke-width="1.3" stroke-linecap="round" opacity="0.5" />
+  </g>
+</svg>

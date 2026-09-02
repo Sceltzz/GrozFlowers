@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <defs>
+    <!-- one petal, base at the heart, tip up; every ring is this shape rotated -->
+    <path
+      id="petal"
+      d="M24 24 C17.4 20.4 14 12.6 17.2 6.8 C19.3 3.1 28.7 3.1 30.8 6.8 C34 12.6 30.6 20.4 24 24 Z"
+    />
+
+    <linearGradient id="budOuter" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#2E62B8" />
+      <stop offset="0.5" stop-color="#17418F" />
+      <stop offset="1" stop-color="#0F2A63" />
+    </linearGradient>
+
+    <linearGradient id="budMid" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#4A86E0" />
+      <stop offset="0.52" stop-color="#235BB8" />
+      <stop offset="1" stop-color="#163C82" />
+    </linearGradient>
+
+    <linearGradient id="budInner" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#83B0EF" />
+      <stop offset="0.5" stop-color="#3A76D8" />
+      <stop offset="1" stop-color="#1E4FA5" />
+    </linearGradient>
+
+    <radialGradient id="budHeart" cx="0.4" cy="0.34" r="0.74">
+      <stop offset="0" stop-color="#F7E29C" />
+      <stop offset="0.45" stop-color="#E0B435" />
+      <stop offset="1" stop-color="#AE8018" />
+    </radialGradient>
+  </defs>
+
+  <!-- outer ring: 7 petals. The hairline keeps the layers apart at small sizes. -->
+  <g fill="url(#budOuter)" stroke="#0C2354" stroke-opacity="0.4" stroke-width="0.55">
+    <use href="#petal" />
+    <use href="#petal" transform="rotate(51.43 24 24)" />
+    <use href="#petal" transform="rotate(102.86 24 24)" />
+    <use href="#petal" transform="rotate(154.29 24 24)" />
+    <use href="#petal" transform="rotate(205.71 24 24)" />
+    <use href="#petal" transform="rotate(257.14 24 24)" />
+    <use href="#petal" transform="rotate(308.57 24 24)" />
+  </g>
+
+  <!-- middle ring: offset half a step, drawn shorter -->
+  <g
+    fill="url(#budMid)"
+    stroke="#102E6B"
+    stroke-opacity="0.34"
+    stroke-width="0.7"
+    transform="translate(24 24) scale(0.73) translate(-24 -24)"
+  >
+    <use href="#petal" transform="rotate(25.7 24 24)" />
+    <use href="#petal" transform="rotate(77.1 24 24)" />
+    <use href="#petal" transform="rotate(128.6 24 24)" />
+    <use href="#petal" transform="rotate(180 24 24)" />
+    <use href="#petal" transform="rotate(231.4 24 24)" />
+    <use href="#petal" transform="rotate(282.9 24 24)" />
+    <use href="#petal" transform="rotate(334.3 24 24)" />
+  </g>
+
+  <!-- inner cup -->
+  <g
+    fill="url(#budInner)"
+    stroke="#17418F"
+    stroke-opacity="0.3"
+    stroke-width="1"
+    transform="translate(24 24) scale(0.46) translate(-24 -24)"
+  >
+    <use href="#petal" transform="rotate(12 24 24)" />
+    <use href="#petal" transform="rotate(72 24 24)" />
+    <use href="#petal" transform="rotate(132 24 24)" />
+    <use href="#petal" transform="rotate(192 24 24)" />
+    <use href="#petal" transform="rotate(252 24 24)" />
+    <use href="#petal" transform="rotate(312 24 24)" />
+  </g>
+
+  <!-- filament crown -->
+  <g fill="#DFB334">
+    <ellipse cx="24" cy="18.4" rx="0.62" ry="2.3" />
+    <ellipse cx="27.29" cy="19.47" rx="0.62" ry="2.3" transform="rotate(36 27.29 19.47)" />
+    <ellipse cx="29.33" cy="22.27" rx="0.62" ry="2.3" transform="rotate(72 29.33 22.27)" />
+    <ellipse cx="29.33" cy="25.73" rx="0.62" ry="2.3" transform="rotate(108 29.33 25.73)" />
+    <ellipse cx="27.29" cy="28.53" rx="0.62" ry="2.3" transform="rotate(144 27.29 28.53)" />
+    <ellipse cx="24" cy="29.6" rx="0.62" ry="2.3" />
+    <ellipse cx="20.71" cy="28.53" rx="0.62" ry="2.3" transform="rotate(216 20.71 28.53)" />
+    <ellipse cx="18.67" cy="25.73" rx="0.62" ry="2.3" transform="rotate(252 18.67 25.73)" />
+    <ellipse cx="18.67" cy="22.27" rx="0.62" ry="2.3" transform="rotate(288 18.67 22.27)" />
+    <ellipse cx="20.71" cy="19.47" rx="0.62" ry="2.3" transform="rotate(324 20.71 19.47)" />
+  </g>
+
+  <circle cx="24" cy="24" r="4.2" fill="url(#budHeart)" />
+  <circle cx="24" cy="24" r="1.45" fill="#A8342A" />
+
+  <!-- one dew highlight, upper left, as in the reference -->
+  <ellipse cx="18.4" cy="10.4" rx="1.4" ry="2" fill="#ffffff" opacity="0.45" transform="rotate(-28 18.4 10.4)" />
+</svg>

@@ -1,0 +1,7 @@
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+/** Standard shadcn helper: merges conditional classes, then dedupes conflicting Tailwind utilities. */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
