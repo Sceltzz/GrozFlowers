@@ -1,7 +1,7 @@
 import type { MouseEvent } from 'react';
-import { Send } from 'lucide-react';
+import { Instagram, Send } from 'lucide-react';
 import { useMotionValue } from 'motion/react';
-import { TELEGRAM_URL, telegramMessageLink } from '../data/contact';
+import { INSTAGRAM_URL, TELEGRAM_URL, telegramMessageLink } from '../data/contact';
 import { useGroundTone } from '../hooks/useGroundTone';
 import { MagneticLink } from './ui/magnetic-link';
 
@@ -44,21 +44,36 @@ export function Footer() {
           onLight ? 'liquid-glass--ink text-[#1c2a22]' : 'text-[#faf6f0]',
         ].join(' ')}
       >
-        {/*
-          Groz Flowers takes every order and every question through Telegram —
-          the source site has no phone number anywhere, only t.me links. This
-          icon and the "Контакты" link below point at the same real chat.
-        */}
-        <MagneticLink
-          mouseX={mouseX}
-          href={TELEGRAM_URL}
-          target="_blank"
-          rel="noreferrer noopener"
-          aria-label="Telegram"
-          className="opacity-75 transition-opacity duration-300 hover:opacity-100"
-        >
-          <Send className="h-[17px] w-[17px]" strokeWidth={1.4} aria-hidden />
-        </MagneticLink>
+        <div className="flex items-center gap-4">
+          {/*
+            Groz Flowers takes every order and every question through
+            Telegram — the source site has no phone number anywhere, only
+            t.me links. This icon and the "Контакты" link below point at
+            the same real chat.
+          */}
+          <MagneticLink
+            mouseX={mouseX}
+            href={TELEGRAM_URL}
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label="Telegram"
+            className="opacity-75 transition-opacity duration-300 hover:opacity-100"
+          >
+            <Send className="h-[17px] w-[17px]" strokeWidth={1.4} aria-hidden />
+          </MagneticLink>
+
+          {/* Instagram — just the profile, no ordering flow behind it. */}
+          <MagneticLink
+            mouseX={mouseX}
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label="Instagram"
+            className="opacity-75 transition-opacity duration-300 hover:opacity-100"
+          >
+            <Instagram className="h-[17px] w-[17px]" strokeWidth={1.4} aria-hidden />
+          </MagneticLink>
+        </div>
 
         <ul className="flex items-center gap-4 text-[9.5px] uppercase tracking-[0.18em] sm:gap-7 sm:text-[10.5px] sm:tracking-[0.2em]">
           <li>

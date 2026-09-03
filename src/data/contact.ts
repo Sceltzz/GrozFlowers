@@ -5,6 +5,9 @@
 export const TELEGRAM_HANDLE = 'GrozFlowers';
 export const TELEGRAM_URL = `https://t.me/${TELEGRAM_HANDLE}`;
 
+/** Instagram — просто ссылка на профиль, без заказов, без сообщений. */
+export const INSTAGRAM_URL = 'https://www.instagram.com/grozflowers/';
+
 /** Ссылка на чат с предзаполненным текстом (Telegram поддерживает ?text=). */
 export const telegramMessageLink = (message: string) =>
   `${TELEGRAM_URL}?text=${encodeURIComponent(message)}`;
