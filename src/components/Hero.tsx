@@ -2,23 +2,26 @@ import { useEffect, useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
 
 // The file itself loops cleanly — 194 frames, an even 1/24s apart, no
-// duplicated or held frame at the seam (verified with ffprobe). The stutter
-// is the browser's own `loop` restart: it's a seek-to-0 that isn't
-// decode-continuous, so it visibly hitches on a slow ambient scene where
-// any hiccup stands out.
+// duplicated or held frame at the seam (verified with ffprobe). What
+// actually caused the visible stutter was never in this file or even in
+// how the loop restarts — it was Chromium's console spelling it out
+// outright: "play() request was interrupted because video-only media was
+// paused to save power." Any silent, autoplaying, audio-*less* <video>
+// gets paused by the browser itself after a while as a battery-saving
+// measure, and the follow-up `play()` calls this effect made to recover
+// were getting rejected right back — a real freeze, not a rendering hitch.
 //
-// First attempt drove the seek-back off `timeupdate` alone and dropped the
-// `loop` attribute — worse: `timeupdate` only fires a few times a second,
-// nowhere near precise enough to land inside a 2-frame margin, so it
-// routinely overshot past the video's real end. With `loop` gone, that
-// meant the video hit EOF, paused itself, and just sat there — a dead
-// frozen frame instead of an occasional stutter.
+// Fixed at the source: `hero-portal.mp4` now carries a near-silent AAC
+// track (8kbps, muxed in with ffmpeg) — `muted` still keeps it inaudible,
+// but the file is no longer "video-only" from Chromium's point of view, so
+// the power-save pause doesn't trigger.
 //
-// `requestVideoFrameCallback` fires once per displayed frame with exact
-// timing, so it can land the early seek precisely — that's the primary
-// mechanism now. `loop` is back as a safety net for the (rare) browser
-// without rVFC: worst case that path still hitches on restart the way it
-// always did, which beats a frozen video.
+// The rest of this effect is defense in depth, not the fix: `ended` plus
+// requestVideoFrameCallback (frame-accurate, unlike `timeupdate`) drive a
+// seek-back a couple of frames before the true end, and every `play()`
+// call is caught rather than left to reject into the console — if the
+// browser ever does pause it for its own reasons again, resuming on the
+// next `visibilitychange` beats sitting frozen indefinitely.
 const LOOP_MARGIN_SECONDS = 0.084;
 
 export function Hero() {
@@ -28,27 +31,50 @@ export function Hero() {
     const video = videoRef.current;
     if (!video) return;
 
+    const attemptPlay = () => {
+      video.play().catch(() => {
+        // Rejected autoplay/power-save pauses are expected sometimes —
+        // handled by resuming on the next visibility change instead of
+        // retrying in a tight loop here.
+      });
+    };
+
+    const restart = () => {
+      video.currentTime = 0;
+      attemptPlay();
+    };
+
     const maybeLoop = () => {
       if (video.duration && video.currentTime >= video.duration - LOOP_MARGIN_SECONDS) {
-        video.currentTime = 0;
+        restart();
       }
     };
 
+    const resumeIfVisible = () => {
+      if (!document.hidden && video.paused) attemptPlay();
+    };
+
+    video.addEventListener('ended', restart);
+    document.addEventListener('visibilitychange', resumeIfVisible);
+
+    let cancelled = false;
     if (typeof video.requestVideoFrameCallback === 'function') {
-      let cancelled = false;
       const tick: VideoFrameRequestCallback = () => {
         if (cancelled) return;
         maybeLoop();
         video.requestVideoFrameCallback(tick);
       };
       video.requestVideoFrameCallback(tick);
-      return () => {
-        cancelled = true;
-      };
+    } else {
+      video.addEventListener('timeupdate', maybeLoop);
     }
 
-    video.addEventListener('timeupdate', maybeLoop);
-    return () => video.removeEventListener('timeupdate', maybeLoop);
+    return () => {
+      cancelled = true;
+      video.removeEventListener('ended', restart);
+      video.removeEventListener('timeupdate', maybeLoop);
+      document.removeEventListener('visibilitychange', resumeIfVisible);
+    };
   }, []);
 
   return (
@@ -67,7 +93,6 @@ export function Hero() {
         ref={videoRef}
         autoPlay
         muted
-        loop
         playsInline
         poster="/hero-portal.jpg"
         aria-hidden
