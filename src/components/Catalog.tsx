@@ -69,7 +69,7 @@ export function Catalog() {
         max-width, or the open space around the closing CTA.
       */}
       <img
-        src="/dove.png"
+        src="/dove-front.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-a pointer-events-none absolute left-[6%] top-24 w-16 opacity-90 drop-shadow-[0_8px_16px_rgba(47,70,53,0.14)] sm:top-28 sm:w-20 lg:left-[10%] lg:top-32 lg:w-28"
@@ -86,7 +86,7 @@ export function Catalog() {
           gap is only ~40px, which is exactly where the flanking pair
           already sits) */}
       <img
-        src="/dove.png"
+        src="/dove-back.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-c pointer-events-none absolute left-1/2 top-24 w-12 -translate-x-1/2 opacity-80 drop-shadow-[0_8px_16px_rgba(47,70,53,0.13)] sm:top-28 sm:w-14 lg:top-32 lg:w-16"
@@ -101,7 +101,7 @@ export function Catalog() {
         style={{ animationDelay: '-9s' }}
       />
       <img
-        src="/dove.png"
+        src="/dove-front.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-b pointer-events-none absolute right-4 top-[68%] hidden w-16 -scale-x-100 opacity-70 drop-shadow-[0_8px_16px_rgba(47,70,53,0.12)] 2xl:block"

@@ -42,7 +42,7 @@ export function Advantages() {
       />
 
       <img
-        src="/dove.png"
+        src="/dove-back.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-b pointer-events-none absolute right-[7%] top-10 w-14 opacity-60 drop-shadow-[0_6px_14px_rgba(8,16,11,0.3)] sm:top-14 sm:w-16"
@@ -64,7 +64,7 @@ export function Advantages() {
         lower, so the two don't read as a mirrored pair.
       */}
       <img
-        src="/dove.png"
+        src="/dove-front.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-c pointer-events-none absolute right-2 top-64 hidden w-20 opacity-55 drop-shadow-[0_8px_16px_rgba(8,16,11,0.28)] sm:w-24 xl:block xl:right-6 xl:top-72 xl:w-28"
