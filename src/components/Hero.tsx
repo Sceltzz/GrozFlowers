@@ -1,6 +1,56 @@
+import { useEffect, useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
 
+// The file itself loops cleanly — 194 frames, an even 1/24s apart, no
+// duplicated or held frame at the seam (verified with ffprobe). The stutter
+// is the browser's own `loop` restart: it's a seek-to-0 that isn't
+// decode-continuous, so it visibly hitches on a slow ambient scene where
+// any hiccup stands out.
+//
+// First attempt drove the seek-back off `timeupdate` alone and dropped the
+// `loop` attribute — worse: `timeupdate` only fires a few times a second,
+// nowhere near precise enough to land inside a 2-frame margin, so it
+// routinely overshot past the video's real end. With `loop` gone, that
+// meant the video hit EOF, paused itself, and just sat there — a dead
+// frozen frame instead of an occasional stutter.
+//
+// `requestVideoFrameCallback` fires once per displayed frame with exact
+// timing, so it can land the early seek precisely — that's the primary
+// mechanism now. `loop` is back as a safety net for the (rare) browser
+// without rVFC: worst case that path still hitches on restart the way it
+// always did, which beats a frozen video.
+const LOOP_MARGIN_SECONDS = 0.084;
+
 export function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const maybeLoop = () => {
+      if (video.duration && video.currentTime >= video.duration - LOOP_MARGIN_SECONDS) {
+        video.currentTime = 0;
+      }
+    };
+
+    if (typeof video.requestVideoFrameCallback === 'function') {
+      let cancelled = false;
+      const tick: VideoFrameRequestCallback = () => {
+        if (cancelled) return;
+        maybeLoop();
+        video.requestVideoFrameCallback(tick);
+      };
+      video.requestVideoFrameCallback(tick);
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    video.addEventListener('timeupdate', maybeLoop);
+    return () => video.removeEventListener('timeupdate', maybeLoop);
+  }, []);
+
   return (
     <section id="top" className="relative h-screen w-full overflow-hidden bg-[#1c1512]">
       {/*
@@ -14,6 +64,7 @@ export function Hero() {
         plain static image instead.
       */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
