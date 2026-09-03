@@ -42,7 +42,7 @@ export function Advantages() {
       />
 
       <img
-        src="/dove-a.svg"
+        src="/dove.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-b pointer-events-none absolute right-[7%] top-10 w-14 opacity-60 drop-shadow-[0_6px_14px_rgba(8,16,11,0.3)] sm:top-14 sm:w-16"
@@ -50,7 +50,7 @@ export function Advantages() {
       />
       {/* outer gutter, level with the eyebrow — outside the 1180px content box, so it's clear at every width where the section itself has margin to spare */}
       <img
-        src="/dove-b.svg"
+        src="/dove.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-a pointer-events-none absolute left-2 top-28 hidden w-14 -scale-x-100 opacity-55 drop-shadow-[0_6px_14px_rgba(8,16,11,0.28)] sm:w-16 xl:block xl:left-6 xl:top-32"
@@ -64,7 +64,7 @@ export function Advantages() {
         lower, so the two don't read as a mirrored pair.
       */}
       <img
-        src="/dove-a.svg"
+        src="/dove.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-c pointer-events-none absolute right-2 top-64 hidden w-20 opacity-55 drop-shadow-[0_8px_16px_rgba(8,16,11,0.28)] sm:w-24 xl:block xl:right-6 xl:top-72 xl:w-28"

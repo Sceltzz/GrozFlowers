@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import { Hero } from './components/Hero';
 import { HowToOrder } from './components/HowToOrder';
 import { Navbar } from './components/Navbar';
+import { SeamTransition } from './components/SeamTransition';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
     <>
       <Navbar />
       <Hero />
+      <SeamTransition src="/seams/hero-featured.jpg" />
       <FeaturedConfigurator />
       <Catalog />
       <Advantages />

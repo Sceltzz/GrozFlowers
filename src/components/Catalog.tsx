@@ -69,13 +69,13 @@ export function Catalog() {
         max-width, or the open space around the closing CTA.
       */}
       <img
-        src="/dove-a.svg"
+        src="/dove.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-a pointer-events-none absolute left-[6%] top-24 w-16 opacity-90 drop-shadow-[0_8px_16px_rgba(47,70,53,0.14)] sm:top-28 sm:w-20 lg:left-[10%] lg:top-32 lg:w-28"
       />
       <img
-        src="/dove-b.svg"
+        src="/dove.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-b pointer-events-none absolute right-[6%] top-24 w-14 -scale-x-100 opacity-90 drop-shadow-[0_8px_16px_rgba(47,70,53,0.12)] sm:top-28 sm:w-[4.5rem] lg:right-[10%] lg:top-32 lg:w-24"
@@ -86,7 +86,7 @@ export function Catalog() {
           gap is only ~40px, which is exactly where the flanking pair
           already sits) */}
       <img
-        src="/dove-a.svg"
+        src="/dove.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-c pointer-events-none absolute left-1/2 top-24 w-12 -translate-x-1/2 opacity-80 drop-shadow-[0_8px_16px_rgba(47,70,53,0.13)] sm:top-28 sm:w-14 lg:top-32 lg:w-16"
@@ -94,14 +94,14 @@ export function Catalog() {
       />
       {/* wide-screen gutter, roughly level with the second row of cards — only where that margin is actually wide enough to clear them */}
       <img
-        src="/dove-b.svg"
+        src="/dove.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-c pointer-events-none absolute left-4 top-[52%] hidden w-14 opacity-70 drop-shadow-[0_8px_16px_rgba(47,70,53,0.12)] 2xl:block"
         style={{ animationDelay: '-9s' }}
       />
       <img
-        src="/dove-a.svg"
+        src="/dove.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-b pointer-events-none absolute right-4 top-[68%] hidden w-16 -scale-x-100 opacity-70 drop-shadow-[0_8px_16px_rgba(47,70,53,0.12)] 2xl:block"
@@ -235,7 +235,7 @@ export function Catalog() {
 
         <div className="reveal relative mx-auto mt-20 max-w-xl text-center lg:mt-28" style={{ animationDelay: '0.1s' }}>
           <img
-            src="/dove-b.svg"
+            src="/dove.png"
             alt=""
             aria-hidden
             className="animate-dove-drift-c pointer-events-none absolute -top-10 right-2 w-12 opacity-60 drop-shadow-[0_6px_12px_rgba(47,70,53,0.1)] sm:-top-12 sm:right-8 sm:w-14"
