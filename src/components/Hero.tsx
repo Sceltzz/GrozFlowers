@@ -16,9 +16,10 @@ export function Hero() {
       />
 
       {/*
-        Scrim: holds the type without flattening the photograph. The seam at
-        the bottom is the Ribbon's job now, not a fade built into this
-        section — nothing here needs to resolve to any other section's color.
+        Scrim: holds the type without flattening the photograph. Nothing
+        here handles the seam at the bottom — sections just abut directly
+        now (the Ribbon divider that used to mark it was removed; see the
+        note in App.tsx history if it's worth revisiting).
       */}
       <div
         className="absolute inset-0"
