@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import { Hero } from './components/Hero';
 import { HowToOrder } from './components/HowToOrder';
 import { Navbar } from './components/Navbar';
+import { Ribbon } from './components/Ribbon';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 export default function App() {
@@ -14,9 +15,12 @@ export default function App() {
     <>
       <Navbar />
       <Hero />
+      <Ribbon />
       <FeaturedConfigurator />
       <Catalog />
+      <Ribbon />
       <Advantages />
+      <Ribbon />
       <HowToOrder />
       <Footer />
     </>
