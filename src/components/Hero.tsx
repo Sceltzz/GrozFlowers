@@ -1,18 +1,33 @@
 import { ArrowDown } from 'lucide-react';
-import { media } from '../data/media';
 
 export function Hero() {
   return (
     <section id="top" className="relative h-screen w-full overflow-hidden bg-[#1c1512]">
+      {/*
+        Generated loop (Higgsfield Seedance 2.5, image-to-video from a Nano
+        Banana reference) replaces the old Unsplash stock photo — golden
+        clouds and a dove, the "Golden Portal" reference brought in for
+        real this time, not the SVG/CSS approximation. `motion-reduce:hidden`
+        / `motion-reduce:block` is the same CSS-only reduced-motion split
+        used everywhere else on the site, so a user with that preference
+        never even requests the video — they get the poster frame as a
+        plain static image instead.
+      */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="/hero-portal.jpg"
+        aria-hidden
+        className="absolute inset-0 hidden h-full w-full object-cover object-[50%_38%] motion-safe:block"
+      >
+        <source src="/hero-portal.mp4" type="video/mp4" />
+      </video>
       <img
-        src={media.hero}
-        alt="Рабочий стол флориста: срезанные стебли, свеча, ваза"
-        // The source photo is a tall portrait crop; on a wide viewport
-        // object-cover's default centring pulls in a slab of bright marble
-        // table from the photo's lower half. Biasing toward the top keeps
-        // the frame on the darker flowers-against-the-wall part of the shot,
-        // so the only place anything goes pale is the fade below, on purpose.
-        className="absolute inset-0 h-full w-full object-cover object-[50%_20%]"
+        src="/hero-portal.jpg"
+        alt="Голубь пролетает сквозь золотые облака"
+        className="absolute inset-0 hidden h-full w-full object-cover object-[50%_38%] motion-reduce:block"
       />
 
       {/*
