@@ -1,109 +1,18 @@
-import { useEffect, useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
-
-// The file itself loops cleanly — 194 frames, an even 1/24s apart, no
-// duplicated or held frame at the seam (verified with ffprobe). What
-// actually caused the visible stutter was never in this file or even in
-// how the loop restarts — it was Chromium's console spelling it out
-// outright: "play() request was interrupted because video-only media was
-// paused to save power." Any silent, autoplaying, audio-*less* <video>
-// gets paused by the browser itself after a while as a battery-saving
-// measure, and the follow-up `play()` calls this effect made to recover
-// were getting rejected right back — a real freeze, not a rendering hitch.
-//
-// Fixed at the source: `hero-portal.mp4` now carries a near-silent AAC
-// track (8kbps, muxed in with ffmpeg) — `muted` still keeps it inaudible,
-// but the file is no longer "video-only" from Chromium's point of view, so
-// the power-save pause doesn't trigger.
-//
-// The rest of this effect is defense in depth, not the fix: `ended` plus
-// requestVideoFrameCallback (frame-accurate, unlike `timeupdate`) drive a
-// seek-back a couple of frames before the true end, and every `play()`
-// call is caught rather than left to reject into the console — if the
-// browser ever does pause it for its own reasons again, resuming on the
-// next `visibilitychange` beats sitting frozen indefinitely.
-const LOOP_MARGIN_SECONDS = 0.084;
+import { media } from '../data/media';
 
 export function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const attemptPlay = () => {
-      video.play().catch(() => {
-        // Rejected autoplay/power-save pauses are expected sometimes —
-        // handled by resuming on the next visibility change instead of
-        // retrying in a tight loop here.
-      });
-    };
-
-    const restart = () => {
-      video.currentTime = 0;
-      attemptPlay();
-    };
-
-    const maybeLoop = () => {
-      if (video.duration && video.currentTime >= video.duration - LOOP_MARGIN_SECONDS) {
-        restart();
-      }
-    };
-
-    const resumeIfVisible = () => {
-      if (!document.hidden && video.paused) attemptPlay();
-    };
-
-    video.addEventListener('ended', restart);
-    document.addEventListener('visibilitychange', resumeIfVisible);
-
-    let cancelled = false;
-    if (typeof video.requestVideoFrameCallback === 'function') {
-      const tick: VideoFrameRequestCallback = () => {
-        if (cancelled) return;
-        maybeLoop();
-        video.requestVideoFrameCallback(tick);
-      };
-      video.requestVideoFrameCallback(tick);
-    } else {
-      video.addEventListener('timeupdate', maybeLoop);
-    }
-
-    return () => {
-      cancelled = true;
-      video.removeEventListener('ended', restart);
-      video.removeEventListener('timeupdate', maybeLoop);
-      document.removeEventListener('visibilitychange', resumeIfVisible);
-    };
-  }, []);
-
   return (
     <section id="top" className="relative h-screen w-full overflow-hidden bg-[#1c1512]">
-      {/*
-        Generated loop (Higgsfield Seedance 2.5, image-to-video from a Nano
-        Banana reference) replaces the old Unsplash stock photo — golden
-        clouds and a dove, the "Golden Portal" reference brought in for
-        real this time, not the SVG/CSS approximation. `motion-reduce:hidden`
-        / `motion-reduce:block` is the same CSS-only reduced-motion split
-        used everywhere else on the site, so a user with that preference
-        never even requests the video — they get the poster frame as a
-        plain static image instead.
-      */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        playsInline
-        poster="/hero-portal.jpg"
-        aria-hidden
-        className="absolute inset-0 hidden h-full w-full object-cover object-[50%_38%] motion-safe:block"
-      >
-        <source src="/hero-portal.mp4" type="video/mp4" />
-      </video>
       <img
-        src="/hero-portal.jpg"
-        alt="Голубь пролетает сквозь золотые облака"
-        className="absolute inset-0 hidden h-full w-full object-cover object-[50%_38%] motion-reduce:block"
+        src={media.hero}
+        alt="Рабочий стол флориста: срезанные стебли, свеча, ваза"
+        // The source photo is a tall portrait crop; on a wide viewport
+        // object-cover's default centring pulls in a slab of bright marble
+        // table from the photo's lower half. Biasing toward the top keeps
+        // the frame on the darker flowers-against-the-wall part of the shot,
+        // so the only place anything goes pale is the fade below, on purpose.
+        className="absolute inset-0 h-full w-full object-cover object-[50%_20%]"
       />
 
       {/*
