@@ -3,11 +3,19 @@ import { useEffect, useState } from 'react';
 /**
  * Does the floating bar at `place` currently sit over the cream ground?
  *
- * The light zone is the union of every section marked `data-ground="light"`
- * (there are two, back to back: the featured configurator and the catalog
- * grid) — the seam above and below the pair is a hard-edged ribbon now, not
- * a fade, so there's no tail to compensate for. The navbar reads the top of
- * the viewport, the footer the bottom.
+ * Checks every section marked `data-ground="light"` independently and
+ * returns true if the sample point falls inside *any one* of them — not
+ * whether it falls inside the min-top/max-bottom span across all of them
+ * combined. That merged-span version worked back when there were only two
+ * light zones and they were adjacent (the featured configurator and the
+ * catalog grid, back to back, no gap), but broke the moment a third,
+ * non-adjacent light zone showed up (the delivery/map section, with the
+ * whole dark Advantages section sitting between it and the catalog): the
+ * merged span happily covered that dark gap too, so the bar rendered its
+ * light-ground styling — a pale scrim glow — straight over dark green.
+ * Per-zone containment doesn't have that failure mode regardless of how
+ * many light zones exist or how they're spaced. The navbar reads the top
+ * of the viewport, the footer the bottom.
  */
 export function useGroundTone(place: 'top' | 'bottom'): boolean {
   const [onLight, setOnLight] = useState(false);
@@ -20,17 +28,15 @@ export function useGroundTone(place: 'top' | 'bottom'): boolean {
       const zones = document.querySelectorAll<HTMLElement>('[data-ground="light"]');
       if (!zones.length) return;
 
-      let top = Infinity;
-      let bottom = -Infinity;
-      zones.forEach((zone) => {
-        const rect = zone.getBoundingClientRect();
-        top = Math.min(top, rect.top);
-        bottom = Math.max(bottom, rect.bottom);
-      });
-
       const y = place === 'top' ? 72 : window.innerHeight - 44;
 
-      setOnLight(y > top && y < bottom);
+      let isLight = false;
+      zones.forEach((zone) => {
+        const rect = zone.getBoundingClientRect();
+        if (y > rect.top && y < rect.bottom) isLight = true;
+      });
+
+      setOnLight(isLight);
     };
 
     const schedule = () => {
