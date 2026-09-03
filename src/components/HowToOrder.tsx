@@ -55,6 +55,39 @@ export function HowToOrder() {
           </div>
         ))}
       </div>
+
+      {/*
+        The real shop's location — a plain Yandex map-widget iframe, no API
+        key needed for this kind of read-only embed (only their JS API
+        requires one). Coordinates and the org id are straight from
+        GrozFlowers' own Yandex Maps listing.
+      */}
+      <div className="reveal mx-auto mt-14 w-full max-w-[1180px] lg:mt-16" style={{ animationDelay: '0.2s' }}>
+        <p className="text-center font-display text-[13px] font-light italic leading-none text-[#a08526]">
+          Наш адрес
+        </p>
+
+        <div className="mt-5 overflow-hidden rounded-[28px] border border-[#1c2a22]/10 shadow-[0_20px_60px_-30px_rgba(28,42,34,0.35)]">
+          <iframe
+            src="https://yandex.ru/map-widget/v1/?ll=37.636940,55.793227&z=17&pt=37.636940,55.793227,pm2rdm"
+            loading="lazy"
+            title="GrozFlowers на карте — Москва, проспект Мира, 88, стр. 1"
+            className="block h-72 w-full border-0 sm:h-96 lg:h-[420px]"
+          />
+        </div>
+
+        <p className="mt-4 text-center text-[14px] font-light text-[#3f4c45]">
+          Москва, проспект Мира, 88, стр. 1 · рядом с м. Рижская —{' '}
+          <a
+            href="https://yandex.ru/maps/org/grozflowers/96255677362/"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="underline decoration-[#c9a227]/50 underline-offset-4 transition-colors duration-300 hover:text-[#1c2a22]"
+          >
+            открыть в Яндекс Картах
+          </a>
+        </p>
+      </div>
     </section>
   );
 }
