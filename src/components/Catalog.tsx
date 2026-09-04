@@ -94,14 +94,14 @@ export function Catalog() {
       />
       {/* wide-screen gutter, roughly level with the second row of cards — only where that margin is actually wide enough to clear them */}
       <img
-        src="/dove.png"
+        src="/sticker 1.webp"
         alt=""
         aria-hidden
         className="animate-dove-drift-c pointer-events-none absolute left-4 top-[52%] hidden w-14 opacity-70 drop-shadow-[0_8px_16px_rgba(47,70,53,0.12)] 2xl:block"
         style={{ animationDelay: '-9s' }}
       />
       <img
-        src="/dove-front.png"
+        src="/dove.png"
         alt=""
         aria-hidden
         className="animate-dove-drift-b pointer-events-none absolute right-4 top-[68%] hidden w-16 -scale-x-100 opacity-70 drop-shadow-[0_8px_16px_rgba(47,70,53,0.12)] 2xl:block"
@@ -235,7 +235,7 @@ export function Catalog() {
 
         <div className="reveal relative mx-auto mt-20 max-w-xl text-center lg:mt-28" style={{ animationDelay: '0.1s' }}>
           <img
-            src="/dove.png"
+            src="/sticker 2.webp"
             alt=""
             aria-hidden
             className="animate-dove-drift-c pointer-events-none absolute -top-10 right-2 w-12 opacity-60 drop-shadow-[0_6px_12px_rgba(47,70,53,0.1)] sm:-top-12 sm:right-8 sm:w-14"
