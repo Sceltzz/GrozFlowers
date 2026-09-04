@@ -101,7 +101,7 @@ export function Catalog() {
         style={{ animationDelay: '-9s' }}
       />
       <img
-        src="/dove.png"
+        src="/sticker 1.webp"
         alt=""
         aria-hidden
         className="animate-dove-drift-b pointer-events-none absolute right-4 top-[68%] hidden w-16 -scale-x-100 opacity-70 drop-shadow-[0_8px_16px_rgba(47,70,53,0.12)] 2xl:block"
